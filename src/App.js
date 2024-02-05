@@ -1,9 +1,11 @@
-import Login from './components/Login'
+import Header from './components/Header'
+import Signup from './components/Signup'
 
 function App() {
   return (
-    <div>
-      <Login />
+    <div className="bg-blue-100 min-h-screen">
+      <Header />
+      <Signup />
     </div>
   )
 }
