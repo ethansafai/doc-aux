@@ -112,7 +112,7 @@ function Signup() {
           value={dateOfBirth}
         />
         <FormItem
-          itemName="Meical License Number"
+          itemName="Medical License Number"
           onChangeCb={(e) => setMedicalLicenseNumber(e.target.value)}
           value={medicalLicenseNumber}
         />
