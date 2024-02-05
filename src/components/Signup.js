@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function FormItem({
   itemName,
@@ -13,8 +14,6 @@ function FormItem({
         {itemName} {required && <span className="text-red-500">*</span>}
       </p>
       <input
-        className="md:px-1 md:py-[2px] rounded-md outline-none focus:shadow-md
-        focus:outline-blue-300 transition-all duration-300 ease-in-out"
         type={inputType}
         required={required}
         onChange={onChangeCb}
@@ -24,42 +23,42 @@ function FormItem({
   )
 }
 
+const initialFormData = {
+  firstName: '',
+  lastName: '',
+  emailAddress: '',
+  password: '',
+  dateOfBirth: '',
+  medicalLicenseNumber: '',
+  practiceName: '',
+  streetAddress: '',
+  city: '',
+  state: '',
+  zipCode: '',
+  telephoneNumber: '',
+  mobileNumber: '',
+}
+
 function Signup() {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [password, setPassword] = useState('')
-  const [emailAddress, setEmailAddress] = useState('')
-  const [dateOfBirth, setDateOfBirth] = useState('')
-  const [medicalLicenseNumber, setMedicalLicenseNumber] = useState('')
-  const [practiceName, setPracticeName] = useState('')
-  const [streetAddress, setStreetAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [zipCode, setZipCode] = useState('')
-  const [telephoneNumber, setTelephoneNumber] = useState('')
-  const [mobileNumber, setMobileNumber] = useState('')
+  const [formData, setFormData] = useState(initialFormData)
+
+  function handleChange(fieldName, newValue) {
+    setFormData((prev) => ({
+      ...prev,
+      [fieldName]: newValue,
+    }))
+  }
 
   function createAccount(e) {
     e.preventDefault()
-
-    setFirstName('')
-    setLastName('')
-    setPassword('')
-    setEmailAddress('')
-    setDateOfBirth('')
-    setMedicalLicenseNumber('')
-    setPracticeName('')
-    setStreetAddress('')
-    setCity('')
-    setState('')
-    setZipCode('')
-    setTelephoneNumber('')
-    setMobileNumber('')
+    console.log(formData)
+    setFormData(initialFormData)
   }
 
   return (
     <form
-      className="flex flex-col items-center gap-6 p-2 max-w-md mx-auto"
+      className="flex flex-col items-center px-4 pt-2 md:px-2 gap-6 max-w-md 
+        mx-auto"
       onSubmit={createAccount}
     >
       <p className="text-lg md:text-xl font-medium text-center">
@@ -69,82 +68,82 @@ function Signup() {
       <div className="flex flex-col items-center gap-4">
         <FormItem
           itemName="First Name"
-          onChangeCb={(e) => setFirstName(e.target.value)}
-          value={firstName}
+          onChangeCb={(e) => handleChange('firstName', e.target.value)}
+          value={formData.firstName}
         />
         <FormItem
           itemName="Last Name"
-          onChangeCb={(e) => setLastName(e.target.value)}
-          value={lastName}
-        />
-        <FormItem
-          itemName="Password"
-          inputType="password"
-          onChangeCb={(e) => setPassword(e.target.value)}
-          value={password}
+          onChangeCb={(e) => handleChange('lastName', e.target.value)}
+          value={formData.lastName}
         />
         <FormItem
           itemName="Email Address"
           inputType="email"
-          onChangeCb={(e) => setEmailAddress(e.target.value)}
-          value={emailAddress}
+          onChangeCb={(e) => handleChange('emailAddress', e.target.value)}
+          value={formData.emailAddress}
+        />
+        <FormItem
+          itemName="Password"
+          inputType="password"
+          onChangeCb={(e) => handleChange('password', e.target.value)}
+          value={formData.password}
         />
         <FormItem
           itemName="Date of Birth"
           inputType="date"
-          onChangeCb={(e) => setDateOfBirth(e.target.value)}
-          value={dateOfBirth}
+          onChangeCb={(e) => handleChange('dateOfBirth', e.target.value)}
+          value={formData.dateOfBirth}
         />
         <FormItem
           itemName="Medical License Number"
-          onChangeCb={(e) => setMedicalLicenseNumber(e.target.value)}
-          value={medicalLicenseNumber}
+          onChangeCb={(e) =>
+            handleChange('medicalLicenseNumber', e.target.value)
+          }
+          value={formData.medicalLicenseNumber}
         />
         <FormItem
           itemName="Practice Name"
-          onChangeCb={(e) => setPracticeName(e.target.value)}
-          value={practiceName}
+          onChangeCb={(e) => handleChange('practiceName', e.target.value)}
+          value={formData.practiceName}
         />
         <FormItem
           itemName="Street Address"
-          onChangeCb={(e) => setStreetAddress(e.target.value)}
-          value={streetAddress}
+          onChangeCb={(e) => handleChange('streetAddress', e.target.value)}
+          value={formData.streetAddress}
         />
         <FormItem
           itemName="City"
-          onChangeCb={(e) => setCity(e.target.value)}
-          value={city}
+          onChangeCb={(e) => handleChange('city', e.target.value)}
+          value={formData.city}
         />
         <FormItem
           itemName="State"
-          onChangeCb={(e) => setState(e.target.value)}
-          value={state}
+          onChangeCb={(e) => handleChange('state', e.target.value)}
+          value={formData.state}
         />
         <FormItem
           itemName="Zip Code"
-          onChangeCb={(e) => setZipCode(e.target.value)}
-          value={zipCode}
+          onChangeCb={(e) => handleChange('zipCode', e.target.value)}
+          value={formData.zipCode}
         />
         <FormItem
           itemName="Telephone Number"
           inputType="tel"
-          onChangeCb={(e) => setTelephoneNumber(e.target.value)}
-          value={telephoneNumber}
+          onChangeCb={(e) => handleChange('telephoneNumber', e.target.value)}
+          value={formData.telephoneNumber}
         />
         <FormItem
           itemName="Mobile"
           inputType="tel"
           required={false}
-          onChangeCb={(e) => setMobileNumber(e.target.value)}
-          value={mobileNumber}
+          onChangeCb={(e) => handleChange('mobileNumber', e.target.value)}
+          value={formData.mobileNumber}
         />
       </div>
-      <button
-        className="px-4 py-1 rounded-full bg-white shadow-md font-medium
-      hover:bg-gray-100 transition-all duration-150 ease-in-out w-28"
-      >
-        Submit
-      </button>
+      <button className="w-28">Submit</button>
+      <p>
+        Already have an account? <Link to="/login">Log In</Link>
+      </p>
     </form>
   )
 }
