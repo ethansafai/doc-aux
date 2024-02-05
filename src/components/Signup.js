@@ -42,22 +42,6 @@ function Signup() {
   function createAccount(e) {
     e.preventDefault()
 
-    console.log(
-      firstName,
-      lastName,
-      password,
-      emailAddress,
-      dateOfBirth,
-      medicalLicenseNumber,
-      practiceName,
-      streetAddress,
-      city,
-      state,
-      zipCode,
-      telephoneNumber,
-      mobileNumber
-    )
-
     setFirstName('')
     setLastName('')
     setPassword('')

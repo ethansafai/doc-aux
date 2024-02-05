@@ -1,12 +1,15 @@
 import Header from './components/Header'
 import Signup from './components/Signup'
+import AppContext from './context/AppContext'
 
 function App() {
   return (
-    <div className="bg-blue-100 min-h-screen">
-      <Header />
-      <Signup />
-    </div>
+    <AppContext>
+      <div className="bg-blue-100 min-h-screen">
+        <Header />
+        <Signup />
+      </div>
+    </AppContext>
   )
 }
 
