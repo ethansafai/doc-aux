@@ -2,10 +2,10 @@ import { useContext } from 'react'
 import { Navigate, Outlet } from 'react-router'
 import { UserContext } from '../context/AppContext'
 
-function PrivateRoute() {
+function AuthenticatedRoute() {
   const { user } = useContext(UserContext)
 
   return user != null ? <Outlet /> : <Navigate to="/login" />
 }
 
-export default PrivateRoute
+export default AuthenticatedRoute
