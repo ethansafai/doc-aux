@@ -10,15 +10,17 @@ function App() {
   return (
     <AppContext>
       <BrowserRouter>
-        <div className="bg-blue-100 min-h-screen pb-8">
+        <div className="bg-blue-100 min-h-screen">
           <Header />
-          <Routes>
-            <Route path="/" element={<AuthenticatedRoute />}>
-              <Route path="/" element={<Home />} />
-            </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
+          <div className="pb-8 px-4 md:px-2">
+            <Routes>
+              <Route path="/" element={<AuthenticatedRoute />}>
+                <Route path="/" element={<Home />} />
+              </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </div>
         </div>
       </BrowserRouter>
     </AppContext>

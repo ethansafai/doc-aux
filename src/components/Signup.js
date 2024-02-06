@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/AppContext'
 
 function FormItem({
   itemName,
@@ -40,7 +41,9 @@ const initialFormData = {
 }
 
 function Signup() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState(initialFormData)
+  const { setUser } = useContext(UserContext)
 
   function handleChange(fieldName, newValue) {
     setFormData((prev) => ({
@@ -51,17 +54,23 @@ function Signup() {
 
   function createAccount(e) {
     e.preventDefault()
-    console.log(formData)
+
     setFormData(initialFormData)
+    setUser({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      emailAddress: formData.emailAddress,
+    })
+
+    navigate('/')
   }
 
   return (
     <form
-      className="flex flex-col items-center px-4 pt-2 md:px-2 gap-6 max-w-md 
-        mx-auto"
+      className="flex flex-col items-center gap-6 max-w-md mx-auto"
       onSubmit={createAccount}
     >
-      <p className="text-lg md:text-xl font-medium text-center">
+      <p className="text-lg font-medium text-center">
         Please enter your information to create your account
       </p>
       <hr className="border border-gray-600 w-full" />
