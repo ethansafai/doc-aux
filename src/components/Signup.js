@@ -60,6 +60,7 @@ function Signup() {
       firstName: formData.firstName,
       lastName: formData.lastName,
       emailAddress: formData.emailAddress,
+      city: formData.city,
     })
 
     navigate('/')
@@ -67,7 +68,8 @@ function Signup() {
 
   return (
     <form
-      className="flex flex-col items-center gap-6 max-w-md mx-auto"
+      className="flex flex-col items-center gap-6 max-w-md mx-auto pb-8 px-4 
+      md:px-2 pt-4"
       onSubmit={createAccount}
     >
       <p className="text-lg font-medium text-center">
