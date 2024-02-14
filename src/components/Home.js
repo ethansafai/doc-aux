@@ -13,6 +13,7 @@ import {
   CogIcon,
   QuestionMarkCircleIcon,
   UserIcon,
+  BellIcon,
 } from '@heroicons/react/outline'
 import Conversations from './Conversations'
 
@@ -76,7 +77,12 @@ function RightSideBar() {
         </p>
         <p>{user.city}, USA</p>
       </div>
-      <div className="flex-1 bg-slate-300"></div>
+      <div className="flex-1 bg-slate-300">
+        <div className="p-4 flex justify-between text-white">
+          <p className="text-lg">Notifications</p>
+          <BellIcon className="w-6" />
+        </div>
+      </div>
     </div>
   )
 }
