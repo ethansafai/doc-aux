@@ -14,7 +14,7 @@ function Conversations() {
   }, [])
 
   return (
-    <div className="bg-white min-w-fit w-[50%] max-w-screen-sm p-2 rounded-xl shadow-md">
+    <div className="bg-white min-w-fit w-[50%] max-w-[20rem] p-2 rounded-xl shadow-md">
       <p className="text-xl font-medium m-1">Your Conversations</p>
       <div className="max-h-52 overflow-y-auto pr-10">
         {conversations.map(({ name, date, image }) => (
