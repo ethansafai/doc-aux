@@ -15,7 +15,6 @@ import {
   UserIcon,
   BellIcon,
 } from '@heroicons/react/outline'
-import Conversations from './Conversations'
 
 function LeftSideBar() {
   const { setUser } = useContext(UserContext)
@@ -36,11 +35,9 @@ function LeftSideBar() {
   }
 
   // Implement handleImageCapture function when click on Image Capture
-function handleImageCapture() {
-      window.location.href = '/image-capture';
-}
-  
-
+  function handleImageCapture() {
+    window.location.href = '/image-capture'
+  }
 
   return (
     <div
@@ -55,7 +52,11 @@ function handleImageCapture() {
       <NavigationItem icon={<ChartBarIcon />} text="Reports" />
       <NavigationItem icon={<SupportIcon />} text="Support" />
       <NavigationItem icon={<ChatIcon />} text="Messages" />
-      <NavigationItem icon={<CameraIcon />} text="Image Capture" onClickCb={handleImageCapture}></NavigationItem>
+      <NavigationItem
+        icon={<CameraIcon />}
+        text="Image Capture"
+        onClickCb={handleImageCapture}
+      ></NavigationItem>
       <NavigationItem
         icon={<ArrowRightIcon />}
         text="Logout"
@@ -102,12 +103,11 @@ function MainSection() {
       <p className="text-xl md:text-2xl font-bold">
         Welcome, <span className="text-cyan-700">Dr. {user.lastName}!</span>
       </p>
-      <Conversations />
     </div>
   )
 }
 
-function Home() {
+function ImageCapture() {
   // TODO: implement login screen (this is placeholder code)
   return (
     <div className="flex justify-between flex-1">
@@ -118,4 +118,4 @@ function Home() {
   )
 }
 
-export default Home
+export default ImageCapture
