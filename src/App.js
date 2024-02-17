@@ -5,6 +5,8 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import Home from './components/Home'
+import ImageCapture from './components/ImageCapture'
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/image-capture" element={<ImageCapture />} />
           </Routes>
         </div>
       </BrowserRouter>
