@@ -103,6 +103,10 @@ function MainSection() {
       <p className="text-xl md:text-2xl font-bold">
         Welcome, <span className="text-cyan-700">Dr. {user.lastName}!</span>
       </p>
+
+      <div>
+        <img src="./images/image-capture-page.jpg" alt="/" />
+      </div>
     </div>
   )
 }
