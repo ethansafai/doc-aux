@@ -16,9 +16,12 @@ import {
   BellIcon,
 } from '@heroicons/react/outline'
 import Conversations from './Conversations'
+import DailyRead from './DailyRead'
+import { useNavigate } from 'react-router-dom'
 
 function LeftSideBar() {
   const { setUser } = useContext(UserContext)
+  const navigate = useNavigate()
 
   function handleLogout() {
     setUser(null)
@@ -35,13 +38,6 @@ function LeftSideBar() {
     )
   }
 
-  // Implement handleImageCapture function when click on Image Capture
-function handleImageCapture() {
-      window.location.href = '/image-capture';
-}
-  
-
-
   return (
     <div
       className="min-h-full bg-slate-400 md:w-full md:min-w-44 max-w-52 
@@ -49,13 +45,21 @@ function handleImageCapture() {
     >
       <p className="text-2xl font-semibold">DocAux</p>
       <UserCircleIcon className="w-24 text-gray-700" />
-      <NavigationItem icon={<ChartPieIcon />} text="Dashboard" />
+      <NavigationItem
+        icon={<ChartPieIcon />}
+        text="Dashboard"
+        onClickCb={() => navigate('/')}
+      />
       <NavigationItem icon={<CalendarIcon />} text="Schedule" />
       <NavigationItem icon={<DocumentIcon />} text="Documents" />
       <NavigationItem icon={<ChartBarIcon />} text="Reports" />
       <NavigationItem icon={<SupportIcon />} text="Support" />
       <NavigationItem icon={<ChatIcon />} text="Messages" />
-      <NavigationItem icon={<CameraIcon />} text="Image Capture" onClickCb={handleImageCapture}></NavigationItem>
+      <NavigationItem
+        icon={<CameraIcon />}
+        text="Image Capture"
+        onClickCb={() => navigate('/image-capture')}
+      ></NavigationItem>
       <NavigationItem
         icon={<ArrowRightIcon />}
         text="Logout"
@@ -82,6 +86,7 @@ function RightSideBar() {
         <p>
           Dr. {user.firstName} {user.lastName}
         </p>
+        <p className="text-xs mb-2">{user.emailAddress}</p>
         <p>{user.city}, USA</p>
       </div>
       <div className="flex-1 bg-slate-300">
@@ -102,7 +107,10 @@ function MainSection() {
       <p className="text-xl md:text-2xl font-bold">
         Welcome, <span className="text-cyan-700">Dr. {user.lastName}!</span>
       </p>
-      <Conversations />
+      <div className="flex flex-wrap gap-10 w-full">
+        <Conversations />
+        <DailyRead />
+      </div>
     </div>
   )
 }
