@@ -100,7 +100,6 @@ function MainSection() {
 
   return (
     <div className="flex flex-col gap-4 px-4 pt-4 w-full">
-
       {/* search bar on the right side */}
       <div className="flex justify-end">
         <input
@@ -113,7 +112,6 @@ function MainSection() {
       <p className="text-xl md:text-2xl font-bold">
         Welcome, <span className="text-cyan-700">Dr. {user.lastName}!</span>
       </p>
-
 
       <div className="flex space-x-6">
         <button className="bg-gray-300 p-2 rounded-md">Capture Image</button>
@@ -132,15 +130,11 @@ function MainSection() {
       <div className="flex justify-end">
         <button className="bg-gray-300 w-1/3 p-2 rounded-md">Submit</button>
       </div>
-
-
-
     </div>
   )
 }
 
 function ImageCapture() {
-  // TODO: implement login screen (this is placeholder code)
   return (
     <div className="flex justify-between flex-1">
       <LeftSideBar />
