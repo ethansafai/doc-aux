@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getConversations } from '../api/userApi'
+import { getConversations } from '../../../api/userApi'
 import { DotsVerticalIcon } from '@heroicons/react/outline'
 
 function Conversations() {

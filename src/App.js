@@ -4,9 +4,9 @@ import Header from './components/Header'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
-import Home from './components/Home'
-import ImageCapture from './components/ImageCapture'
-
+import Home from './components/Home/Home'
+import ImageCapture from './components/Home/ImageCapture/ImageCapture'
+import Dashboard from './components/Home/Dashboard/Dashboard'
 
 function App() {
   return (
@@ -16,11 +16,25 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<AuthenticatedRoute />}>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={
+                  <Home>
+                    <Dashboard />
+                  </Home>
+                }
+              />
+              <Route
+                path="/image-capture"
+                element={
+                  <Home>
+                    <ImageCapture />
+                  </Home>
+                }
+              />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/image-capture" element={<ImageCapture />} />
           </Routes>
         </div>
       </BrowserRouter>
