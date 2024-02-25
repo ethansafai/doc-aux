@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { UserContext } from '../../context/AppContext'
+import { UserContext } from '../../../context/AppContext'
 
 function ImageCapture() {
   const { user } = useContext(UserContext)

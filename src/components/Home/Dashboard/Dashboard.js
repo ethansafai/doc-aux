@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import Conversations from './Conversations'
 import DailyRead from './DailyRead'
-import { UserContext } from '../../context/AppContext'
+import { UserContext } from '../../../context/AppContext'
 
 function Dashboard() {
   const { user } = useContext(UserContext)
