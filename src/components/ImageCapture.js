@@ -105,7 +105,7 @@ function MainSection() {
         <input
           type="search"
           placeholder="🔍 Search"
-          className="bg-gray-300 w-1/2 p-2 rounded-lg"
+          className="bg-gray-300 w-1/3 p-2 rounded-lg"
         />
       </div>
 
@@ -118,7 +118,7 @@ function MainSection() {
         <button className="bg-gray-300 p-2 rounded-md">Upload Image</button>
       </div>
 
-      <div>
+      <div className='flex justify-center'>
         <img src="./images/image-capture-page.jpg" alt="/" />
       </div>
 
@@ -128,7 +128,7 @@ function MainSection() {
       </div>
 
       <div className="flex justify-end">
-        <button className="bg-gray-300 w-1/3 p-2 rounded-md">Submit</button>
+        <button className="bg-gray-300 w-1/5 p-2 rounded-md">Submit</button>
       </div>
     </div>
   )
