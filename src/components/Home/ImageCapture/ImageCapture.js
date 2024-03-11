@@ -43,7 +43,7 @@ function ImageCapture() {
         <img
           src={file ?? './images/image-capture-page.jpg'}
           alt="/"
-          className="max-w-3xl"
+          className="overflow-auto"
         />
       </div>
 
