@@ -4,6 +4,7 @@ import { UserContext } from '../context/AppContext'
 
 function FormItem({
   itemName,
+  name,
   onChangeCb,
   value,
   inputType = 'text',
@@ -19,6 +20,7 @@ function FormItem({
         required={required}
         onChange={onChangeCb}
         value={value}
+        name={name}
       />
     </div>
   )
@@ -45,10 +47,10 @@ function Signup() {
   const [formData, setFormData] = useState(initialFormData)
   const { setUser } = useContext(UserContext)
 
-  function handleChange(fieldName, newValue) {
+  function handleChange(e) {
     setFormData((prev) => ({
       ...prev,
-      [fieldName]: newValue,
+      [e.target.name]: e.target.value,
     }))
   }
 
@@ -79,76 +81,87 @@ function Signup() {
       <div className="flex flex-col items-center gap-4">
         <FormItem
           itemName="First Name"
-          onChangeCb={(e) => handleChange('firstName', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.firstName}
+          name="firstName"
         />
         <FormItem
           itemName="Last Name"
-          onChangeCb={(e) => handleChange('lastName', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.lastName}
+          name="lastName"
         />
         <FormItem
           itemName="Email Address"
           inputType="email"
-          onChangeCb={(e) => handleChange('emailAddress', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.emailAddress}
+          name="emailAddress"
         />
         <FormItem
           itemName="Password"
           inputType="password"
-          onChangeCb={(e) => handleChange('password', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.password}
+          name="password"
         />
         <FormItem
           itemName="Date of Birth"
           inputType="date"
-          onChangeCb={(e) => handleChange('dateOfBirth', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.dateOfBirth}
+          name="dateOfBirth"
         />
         <FormItem
           itemName="Medical License Number"
-          onChangeCb={(e) =>
-            handleChange('medicalLicenseNumber', e.target.value)
-          }
+          onChangeCb={handleChange}
           value={formData.medicalLicenseNumber}
+          name="medicalLicenseNumber"
         />
         <FormItem
           itemName="Practice Name"
-          onChangeCb={(e) => handleChange('practiceName', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.practiceName}
+          name="practiceName"
         />
         <FormItem
           itemName="Street Address"
-          onChangeCb={(e) => handleChange('streetAddress', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.streetAddress}
+          name="streetAddress"
         />
         <FormItem
           itemName="City"
-          onChangeCb={(e) => handleChange('city', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.city}
+          name="city"
         />
         <FormItem
           itemName="State"
-          onChangeCb={(e) => handleChange('state', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.state}
+          name="state"
         />
         <FormItem
           itemName="Zip Code"
-          onChangeCb={(e) => handleChange('zipCode', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.zipCode}
+          name="zipCode"
         />
         <FormItem
           itemName="Telephone Number"
           inputType="tel"
-          onChangeCb={(e) => handleChange('telephoneNumber', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.telephoneNumber}
+          name="telephoneNumber"
         />
         <FormItem
           itemName="Mobile"
           inputType="tel"
           required={false}
-          onChangeCb={(e) => handleChange('mobileNumber', e.target.value)}
+          onChangeCb={handleChange}
           value={formData.mobileNumber}
+          name="mobileNumber"
         />
       </div>
       <button className="w-28">Submit</button>

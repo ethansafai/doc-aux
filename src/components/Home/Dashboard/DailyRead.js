@@ -4,7 +4,7 @@ function DailyRead() {
   return (
     <div
       className="bg-white min-w-fit w-[50%] max-w-[20rem] p-4 rounded-xl 
-    shadow-md"
+                 shadow-md"
     >
       <p className="font-medium text-xl">Daily Read</p>
       <p>New rules in the dose of medicines to be consumed.</p>

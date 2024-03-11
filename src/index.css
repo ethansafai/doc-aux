@@ -6,7 +6,8 @@ a {
   @apply underline text-blue-600 visited:text-purple-600;
 }
 
-button {
+button,
+label.file-upload {
   @apply px-4 py-1 rounded-full bg-white shadow-md font-medium 
   hover:bg-gray-100 transition-all duration-150 ease-in-out;
 }

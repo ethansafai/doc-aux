@@ -5,8 +5,8 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import Home from './components/Home/Home'
-import ImageCapture from './components/Home/ImageCapture/ImageCapture'
-import Dashboard from './components/Home/Dashboard/Dashboard'
+import ImageCapture from './components/Home/ImageCapture'
+import Dashboard from './components/Home/Dashboard'
 
 function App() {
   return (
