@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/AppContext'
+import { AxiosError } from 'axios'
+import sharedAxios from '../services/httpService'
 
 function FormItem({
   itemName,
@@ -29,23 +31,26 @@ function FormItem({
 const initialFormData = {
   firstName: '',
   lastName: '',
-  emailAddress: '',
+  email: '',
   password: '',
-  dateOfBirth: '',
-  medicalLicenseNumber: '',
+  dob: '',
+  medicalLicenseNo: '',
   practiceName: '',
   streetAddress: '',
   city: '',
   state: '',
   zipCode: '',
-  telephoneNumber: '',
-  mobileNumber: '',
+  telNo: '',
+  mobileNo: '',
 }
 
 function Signup() {
   const navigate = useNavigate()
-  const [formData, setFormData] = useState(initialFormData)
   const { setUser } = useContext(UserContext)
+  const [formData, setFormData] = useState(initialFormData)
+  const [role, setRole] = useState('patient')
+  const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   function handleChange(e) {
     setFormData((prev) => ({
@@ -54,24 +59,96 @@ function Signup() {
     }))
   }
 
-  function createAccount(e) {
+  async function createAccount(e) {
     e.preventDefault()
 
-    setFormData(initialFormData)
-    setUser({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      emailAddress: formData.emailAddress,
-      city: formData.city,
-    })
+    setLoading(true)
+    setErrorMessage('')
+    try {
+      if (role !== 'doctor' && role !== 'patient') {
+        throw new Error(`Invalid value for 'role': ${role}`)
+      }
 
-    navigate('/')
+      let submitData = {}
+      if (role === 'doctor') {
+        submitData = {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          dob: formData.dob,
+          medicalLicenseNo: formData.medicalLicenseNo,
+          practice: {
+            name: formData.practiceName,
+            streetAddress: formData.streetAddress,
+            city: formData.city,
+            state: formData.state,
+            zipCode: formData.zipCode,
+            telNo: formData.telNo,
+          },
+        }
+        // Optional field
+        if (formData.mobileNo) {
+          submitData.mobileNo = formData.mobileNo
+        }
+      } else {
+        submitData = {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          dob: formData.dob,
+          streetAddress: formData.streetAddress,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode,
+          mobileNo: formData.mobileNo,
+        }
+      }
+
+      let url = ''
+      if (role === 'doctor') {
+        url = 'doctors'
+      } else {
+        url = 'patients'
+      }
+
+      const { data } = await sharedAxios.post(`${url}/`, submitData)
+      if (data?.accessToken && data?.user) {
+        setUser({ ...data.user, role })
+        if (role === 'doctor') {
+          localStorage.setItem('doctorAccessToken', data.accessToken)
+          localStorage.setItem('doctor', JSON.stringify({ ...data.user, role }))
+          navigate('/')
+        } else {
+          localStorage.setItem('patientAccessToken', data.accessToken)
+          localStorage.setItem(
+            'patient',
+            JSON.stringify({ ...data.user, role })
+          )
+          navigate('/patient')
+        }
+      } else {
+        throw new Error(`Unexpected data from server: ${data}`)
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        setErrorMessage(err.response?.data?.error ?? 'An error occurred')
+      } else {
+        console.error(err)
+        setErrorMessage('An error occurred')
+      }
+    } finally {
+      setLoading(false)
+      setFormData(initialFormData)
+      setErrorMessage('')
+    }
   }
 
   return (
     <form
       className="flex flex-col items-center gap-6 max-w-md mx-auto pb-8 px-4 
-      md:px-2 pt-4"
+      md:px-2 pt-4 font-medium"
       onSubmit={createAccount}
     >
       <p className="text-lg font-medium text-center">
@@ -95,8 +172,8 @@ function Signup() {
           itemName="Email Address"
           inputType="email"
           onChangeCb={handleChange}
-          value={formData.emailAddress}
-          name="emailAddress"
+          value={formData.email}
+          name="email"
         />
         <FormItem
           itemName="Password"
@@ -109,21 +186,25 @@ function Signup() {
           itemName="Date of Birth"
           inputType="date"
           onChangeCb={handleChange}
-          value={formData.dateOfBirth}
-          name="dateOfBirth"
+          value={formData.dob}
+          name="dob"
         />
-        <FormItem
-          itemName="Medical License Number"
-          onChangeCb={handleChange}
-          value={formData.medicalLicenseNumber}
-          name="medicalLicenseNumber"
-        />
-        <FormItem
-          itemName="Practice Name"
-          onChangeCb={handleChange}
-          value={formData.practiceName}
-          name="practiceName"
-        />
+        {role === 'doctor' && (
+          <FormItem
+            itemName="Medical License Number"
+            onChangeCb={handleChange}
+            value={formData.medicalLicenseNo}
+            name="medicalLicenseNo"
+          />
+        )}
+        {role === 'doctor' && (
+          <FormItem
+            itemName="Practice Name"
+            onChangeCb={handleChange}
+            value={formData.practiceName}
+            name="practiceName"
+          />
+        )}
         <FormItem
           itemName="Street Address"
           onChangeCb={handleChange}
@@ -148,23 +229,40 @@ function Signup() {
           value={formData.zipCode}
           name="zipCode"
         />
-        <FormItem
-          itemName="Telephone Number"
-          inputType="tel"
-          onChangeCb={handleChange}
-          value={formData.telephoneNumber}
-          name="telephoneNumber"
-        />
+        {role === 'doctor' && (
+          <FormItem
+            itemName="Telephone Number"
+            inputType="tel"
+            onChangeCb={handleChange}
+            value={formData.telNo}
+            name="telNo"
+          />
+        )}
         <FormItem
           itemName="Mobile"
           inputType="tel"
-          required={false}
+          required={role === 'patient'}
           onChangeCb={handleChange}
-          value={formData.mobileNumber}
-          name="mobileNumber"
+          value={formData.mobileNo}
+          name="mobileNo"
         />
+        <div className="flex items-center gap-3 mb-4">
+          <p className="font-medium">I am a: </p>
+          <select
+            onChange={(e) => setRole(e.target.value)}
+            className="px-2 py-1 rounded-md bg-slate-100 outline-none border
+          border-blue-500"
+          >
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+          </select>
+        </div>
       </div>
       <button className="w-28">Submit</button>
+      {loading && <p className="animate-pulse">Creating your account...</p>}
+      {errorMessage && (
+        <p className="text-red-500 font-medium">{errorMessage}</p>
+      )}
       <p>
         Already have an account? <Link to="/login">Log In</Link>
       </p>

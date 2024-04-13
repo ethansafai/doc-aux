@@ -12,12 +12,12 @@ import { UserContext } from '../../context/AppContext'
 function RightSideBar() {
   const { user } = useContext(UserContext)
   const [sideBarOpen, setSideBarOpen] = useState(true)
-
+  console.log(user)
   if (sideBarOpen) {
     return (
       <div
         className="min-h-full bg-slate-400 flex w-full min-w-44 max-w-52 
-                 flex-col"
+        flex-col"
       >
         <div className="flex-1 text-center text-white flex flex-col items-center">
           <div className="p-4 flex justify-end items-center gap-4 w-full">
@@ -25,11 +25,27 @@ function RightSideBar() {
             <CogIcon className="text-white w-6" />
           </div>
           <UserIcon className="text-white w-16 my-10" />
-          <p>
-            Dr. {user.firstName} {user.lastName}
-          </p>
-          <p className="text-xs mb-2">{user.emailAddress}</p>
-          <p>{user.city}, USA</p>
+          {user.role === 'doctor' ? (
+            <>
+              <p>
+                Dr. {user.firstName} {user.lastName}
+              </p>
+              <p className="text-xs mb-2">{user.email}</p>
+              <p>
+                {user.practice?.city}, {user.practice?.state}, USA
+              </p>
+            </>
+          ) : (
+            <>
+              <p>
+                {user.firstName} {user.lastName}
+              </p>
+              <p className="text-xs mb-2">{user.email}</p>
+              <p>
+                {user.city}, {user.state}, USA
+              </p>
+            </>
+          )}
         </div>
         <div className="flex-1 bg-slate-300 flex flex-col px-2">
           <div className="p-4 flex justify-between text-white">

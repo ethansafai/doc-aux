@@ -3,12 +3,11 @@ import { createContext, useState } from 'react'
 export const UserContext = createContext()
 
 function AppContext({ children }) {
-  const [user, setUser] = useState({
-    firstName: 'Ethan',
-    lastName: 'Safai',
-    emailAddress: 'ethan@safai.com',
-    city: 'Los Angeles',
-  }) // for testing
+  const [user, setUser] = useState(
+    JSON.parse(
+      localStorage.getItem('doctor') ?? localStorage.getItem('patient')
+    )
+  )
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

@@ -6,7 +6,8 @@ import Login from './components/Login'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import Home from './components/Home/Home'
 import ImageCapture from './components/Home/ImageCapture'
-import Dashboard from './components/Home/Dashboard'
+import DoctorDashboard from './components/Home/DoctorDashboard'
+import PatientDashboard from './components/Home/PatientDashboard'
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
                 path="/"
                 element={
                   <Home>
-                    <Dashboard />
+                    <DoctorDashboard />
                   </Home>
                 }
               />
@@ -29,6 +30,14 @@ function App() {
                 element={
                   <Home>
                     <ImageCapture />
+                  </Home>
+                }
+              />
+              <Route
+                path="/patient"
+                element={
+                  <Home>
+                    <PatientDashboard />
                   </Home>
                 }
               />

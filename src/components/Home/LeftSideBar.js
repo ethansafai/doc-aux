@@ -8,6 +8,8 @@ import {
 import { cloneElement, useContext, useState } from 'react'
 import { UserContext } from '../../context/AppContext'
 import { Link } from 'react-router-dom'
+import sharedAxios from '../../services/httpService'
+import { AxiosError } from 'axios'
 
 function NavigationItem({ icon, text, route, onClickCb }) {
   return (
@@ -25,27 +27,51 @@ function NavigationItem({ icon, text, route, onClickCb }) {
 }
 
 function LeftSideBar() {
-  const { setUser } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
   const [sideBarOpen, setSideBarOpen] = useState(true)
 
-  function handleLogout() {
-    setUser(null)
+  async function handleLogout() {
+    try {
+      await sharedAxios.delete('auth/logout')
+      if (user.role === 'doctor') {
+        localStorage.removeItem('doctorAccessToken')
+        localStorage.removeItem('doctor')
+      } else {
+        localStorage.removeItem('patientAccessToken')
+        localStorage.removeItem('patient')
+      }
+      setUser(null)
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.status === 401) {
+        setUser(null)
+      }
+      console.error(err)
+    }
   }
 
   if (sideBarOpen) {
     return (
       <div
         className="min-h-full bg-slate-400 w-full min-w-44 max-w-52 flex
-                 flex-col items-center gap-6 px-6 pt-4 text-white"
+        flex-col items-center gap-6 px-6 pt-4 text-white"
       >
         <p className="text-2xl font-semibold">DocAux</p>
+        <p className="uppercase italic">{user.role} view</p>
         <UserCircleIcon className="w-24 text-gray-700" />
-        <NavigationItem icon={<ChartPieIcon />} text="Dashboard" route="/" />
-        <NavigationItem
-          icon={<CameraIcon />}
-          text="Image Capture"
-          route="/image-capture"
-        ></NavigationItem>
+        {user.role === 'doctor' && (
+          <>
+            <NavigationItem
+              icon={<ChartPieIcon />}
+              text="Dashboard"
+              route="/"
+            />
+            <NavigationItem
+              icon={<CameraIcon />}
+              text="Image Capture"
+              route="/image-capture"
+            ></NavigationItem>
+          </>
+        )}
         <NavigationItem
           icon={<ArrowRightIcon />}
           text="Logout"

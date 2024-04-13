@@ -24,8 +24,8 @@ function ImageCapture() {
         <label
           htmlFor="file"
           className="bg-gray-300 p-2 rounded-md cursor-pointer shadow-md 
-                     font-medium hover:bg-gray-100 transition-all duration-150
-                     ease-in-out"
+          font-medium hover:bg-gray-100 transition-all duration-150
+          ease-in-out"
         >
           Upload Image
         </label>
