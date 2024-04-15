@@ -14,9 +14,6 @@ function ImageCard({ imageName, handleClose }) {
     try {
       const { data } = await sharedAxios.get(`images/${imageName}`)
       if (data) {
-        data.imageData =
-          'data:image/' + data.imageData.slice(data.imageData.indexOf('/') + 1)
-        console.log(data)
         setImageData(data.imageData)
       }
     } catch (err) {

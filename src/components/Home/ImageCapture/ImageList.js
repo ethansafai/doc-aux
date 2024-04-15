@@ -1,12 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useInitialMount from '../../../hooks/useInitialMount'
 import sharedAxios from '../../../services/httpService'
 import { AxiosError } from 'axios'
 import ImageCard from './ImageCard'
+import useDebounce from '../../../hooks/useDebounce'
 
 function ImageList({ loadUserImages, images, loadingImages }) {
   const [currentImageName, setCurrentImageName] = useState('')
   const [imageCardOpen, setImageCardOpen] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const debouncedSearchValue = useDebounce(searchValue, 500)
+  const [visibleImages, setVisibleImages] = useState(images)
 
   async function deleteImage(imageName) {
     try {
@@ -38,6 +42,16 @@ function ImageList({ loadUserImages, images, loadingImages }) {
 
   useInitialMount(loadUserImages)
 
+  useEffect(() => {
+    if (!debouncedSearchValue) {
+      setVisibleImages(images)
+      return
+    }
+    setVisibleImages(
+      images.filter((imageName) => imageName.includes(debouncedSearchValue))
+    )
+  }, [images, debouncedSearchValue])
+
   return (
     <div
       className="flex flex-col gap-1 min-w-52 bg-slate-100 p-5 rounded-lg
@@ -59,9 +73,11 @@ function ImageList({ loadUserImages, images, loadingImages }) {
             placeholder="Search 🔍"
             className="bg-slate-100 w-1/2 p-2 rounded-lg border-2 
             border-slate-500 my-1"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
           <div className="border border-slate-400 w-[98%] mx-auto my-3"></div>
-          {images.map((imageName) => (
+          {visibleImages.map((imageName) => (
             <div key={imageName} className="text-lg flex items-center gap-2">
               <p
                 className="text-blue-500 underline cursor-pointer"
