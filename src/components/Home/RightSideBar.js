@@ -12,7 +12,7 @@ import { UserContext } from '../../context/AppContext'
 function RightSideBar() {
   const { user } = useContext(UserContext)
   const [sideBarOpen, setSideBarOpen] = useState(true)
-  console.log(user)
+
   if (sideBarOpen) {
     return (
       <div

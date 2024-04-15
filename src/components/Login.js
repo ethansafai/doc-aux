@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/AppContext'
 import sharedAxios from '../services/httpService'
 import { AxiosError } from 'axios'
+import useInitialMount from '../hooks/useInitialMount'
 
 const formItemCss = 'p-2 my-2 border border-gray-300 rounded w-full max-w-xs'
 
@@ -49,10 +50,10 @@ function Login() {
         throw new Error(`Unexpected data from server: ${data}`)
       }
     } catch (err) {
+      console.error(err)
       if (err instanceof AxiosError) {
         setErrorMessage(err.response?.data?.error ?? 'An error occurred')
       } else {
-        console.error(err)
         setErrorMessage('An error occurred')
       }
     } finally {
@@ -61,6 +62,10 @@ function Login() {
       setPassword('')
     }
   }
+
+  useInitialMount(() => {
+    setUser(null)
+  })
 
   return (
     <div

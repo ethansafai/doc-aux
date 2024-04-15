@@ -5,7 +5,9 @@ function useInitialMount(callback) {
 
   if (isInitialMountRef.current) {
     isInitialMountRef.current = false
-    callback()
+    if (typeof callback === 'function') {
+      callback()
+    }
   }
 }
 

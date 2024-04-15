@@ -69,7 +69,7 @@ function LeftSideBar() {
               icon={<CameraIcon />}
               text="Image Capture"
               route="/image-capture"
-            ></NavigationItem>
+            />
           </>
         )}
         <NavigationItem

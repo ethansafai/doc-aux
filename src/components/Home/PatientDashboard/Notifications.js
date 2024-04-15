@@ -33,7 +33,7 @@ function Notifications() {
         {!!notifications.length &&
           notifications.map((notification, index) => (
             <li
-              className={`list-disc ml-6 ${
+              className={`px-4 flex items-center ${
                 index % 2 !== 0 ? 'bg-cyan-50' : undefined
               }`}
               key={notification.id}
@@ -44,6 +44,8 @@ function Notifications() {
                 </span>
                 {notification.message}
               </p>
+              <div className="border-b-[1px] border-slate-500 grow mx-2"></div>
+              <p>{notification.timestamp}</p>
             </li>
           ))}
       </ul>

@@ -7,7 +7,7 @@ function DailyRead() {
       shadow-md"
     >
       <div className="flex gap-2 items-center">
-        <p className="font-medium text-3xl">Daily Read</p>
+        <p className="font-medium text-3xl mr-2">Daily Read</p>
         <BookOpenIcon className="w-16" />
       </div>
       <p className="text-xl">

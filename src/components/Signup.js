@@ -132,10 +132,10 @@ function Signup() {
         throw new Error(`Unexpected data from server: ${data}`)
       }
     } catch (err) {
+      console.error(err)
       if (err instanceof AxiosError) {
         setErrorMessage(err.response?.data?.error ?? 'An error occurred')
       } else {
-        console.error(err)
         setErrorMessage('An error occurred')
       }
     } finally {

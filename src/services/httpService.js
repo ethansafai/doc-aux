@@ -18,4 +18,20 @@ sharedAxios.interceptors.request.use((config) => {
   return config
 })
 
+sharedAxios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status === 401) {
+      localStorage.removeItem('doctor')
+      localStorage.removeItem('doctorAccessToken')
+      localStorage.removeItem('patient')
+      localStorage.removeItem('patientAccessToken')
+      alert('Your session has expired, signing you out...')
+      window.location.href = '/login'
+    } else {
+      return Promise.reject(error)
+    }
+  }
+)
+
 export default sharedAxios
