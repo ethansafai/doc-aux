@@ -33,6 +33,7 @@ const initialFormData = {
   lastName: '',
   email: '',
   password: '',
+  confirmPassword: '',
   dob: '',
   medicalLicenseNo: '',
   practiceName: '',
@@ -67,6 +68,10 @@ function Signup() {
     try {
       if (role !== 'doctor' && role !== 'patient') {
         throw new Error(`Invalid value for 'role': ${role}`)
+      }
+
+      if (formData.password !== formData.confirmPassword) {
+        throw new Error('Passwords do not match')
       }
 
       let submitData = {}
@@ -136,12 +141,10 @@ function Signup() {
       if (err instanceof AxiosError) {
         setErrorMessage(err.response?.data?.error ?? 'An error occurred')
       } else {
-        setErrorMessage('An error occurred')
+        setErrorMessage(err.message ?? 'An error occurred')
       }
     } finally {
       setLoading(false)
-      setFormData(initialFormData)
-      setErrorMessage('')
     }
   }
 
@@ -181,6 +184,13 @@ function Signup() {
           onChangeCb={handleChange}
           value={formData.password}
           name="password"
+        />
+        <FormItem
+          itemName="Confirm Password"
+          inputType="password"
+          onChangeCb={handleChange}
+          value={formData.confirmPassword}
+          name="confirmPassword"
         />
         <FormItem
           itemName="Date of Birth"
