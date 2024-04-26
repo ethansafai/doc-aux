@@ -109,7 +109,11 @@ function Patients() {
 
   return (
     <div className="shadow-md rounded-lg bg-slate-100 p-2">
-      <p className="font-bold text-xl mb-2">Your Patients</p>
+      <p className="font-bold text-xl mb-2">
+        Your Patients{' '}
+        {!!patients.length &&
+          "(click on a patient's email to send them a notification)"}
+      </p>
       <div className="border w-full border-gray-400 mb-2"></div>
       {loading && <p className="animate-pulse">Loading patients...</p>}
       <PatientsTable patients={patients} onPatientClickCb={handleOpenForm} />
