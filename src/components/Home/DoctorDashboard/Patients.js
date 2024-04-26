@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import sharedAxios from '../../../services/httpService'
 import useInitialMount from '../../../hooks/useInitialMount'
 import { AxiosError } from 'axios'
+import PatientsTable from './PatientsTable'
 
 function NotifyForm({ patient, handleClose }) {
   const inputRef = useRef(null)
@@ -111,47 +112,7 @@ function Patients() {
       <p className="font-bold text-xl mb-2">Your Patients</p>
       <div className="border w-full border-gray-400 mb-2"></div>
       {loading && <p className="animate-pulse">Loading patients...</p>}
-      <div className="overflow-x-auto">
-        <table
-          className="text-gray-500 bg-white border-collapse w-full
-          text-lg"
-        >
-          <thead className="text-gray-700 uppercase text-left">
-            <tr>
-              <th className="border-2 px-1">Email</th>
-              <th className="border-2 px-1">Name</th>
-              <th className="border-2 px-1">Street Address</th>
-              <th className="border-2 px-1">City</th>
-              <th className="border-2 px-1">State</th>
-              <th className="border-2 px-1">Zip Code</th>
-              <th className="border-2 px-1">Mobile #</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!!patients.length &&
-              patients.map((patient) => (
-                <tr key={patient.id}>
-                  <td
-                    className="border-2 px-1 underline cursor-pointer text-blue-400"
-                    onClick={() => {
-                      handleOpenForm(patient)
-                    }}
-                  >
-                    {patient.email}
-                  </td>
-                  <td className="border-2 px-1">
-                    {patient.firstName} {patient.lastName}
-                  </td>
-                  <td className="border-2 px-1">{patient.streetAddress}</td>
-                  <td className="border-2 px-1">{patient.city}</td>
-                  <td className="border-2 px-1">{patient.state}</td>
-                  <td className="border-2 px-1">{patient.zipCode}</td>
-                  <td className="border-2 px-1">{patient.mobileNo}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+      <PatientsTable patients={patients} onPatientClickCb={handleOpenForm} />
       {formState.open && (
         <NotifyForm patient={formState.patient} handleClose={handleCloseForm} />
       )}

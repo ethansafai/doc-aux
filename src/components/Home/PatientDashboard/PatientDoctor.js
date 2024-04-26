@@ -1,9 +1,40 @@
-import { useContext } from 'react'
-import { UserContext } from '../../../context/AppContext'
+import { AxiosError } from 'axios'
+import { useState } from 'react'
+import sharedAxios from '../../../services/httpService'
+import useInitialMount from '../../../hooks/useInitialMount'
 
 function PatientDoctor() {
-  const { user } = useContext(UserContext)
-  if (user.doctor == null) {
+  const [doctor, setDoctor] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  async function getDoctor() {
+    setLoading(true)
+    try {
+      const { data } = await sharedAxios.get('patients/self')
+      if (data.doctor) {
+        setDoctor(data.doctor)
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useInitialMount(getDoctor)
+
+  if (loading) {
+    return (
+      <div
+        className="border bg-slate-100 min-h-32 min-w-80 p-2 rounded-lg
+    shadow-md"
+      >
+        <p className="animate-pulse">Loading...</p>
+      </div>
+    )
+  }
+
+  if (doctor === null) {
     return (
       <div
         className="border bg-slate-100 min-h-32 min-w-80 p-2 rounded-lg
@@ -13,7 +44,7 @@ function PatientDoctor() {
       </div>
     )
   }
-  const { doctor } = user
+
   return (
     <div className="border bg-slate-100 min-h-32 min-w-80 p-2 rounded-lg shadow-md">
       <p className="text-xl font-medium mb-2">Your Doctor:</p>

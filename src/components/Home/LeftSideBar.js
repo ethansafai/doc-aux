@@ -70,6 +70,11 @@ function LeftSideBar() {
               text="Image Capture"
               route="/image-capture"
             />
+            <NavigationItem
+              icon={<CameraIcon />}
+              text="Unassigned Patients"
+              route="/unassigned-patients"
+            />
           </>
         )}
         <NavigationItem

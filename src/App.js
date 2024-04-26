@@ -8,6 +8,7 @@ import Home from './components/Home/Home'
 import ImageCapture from './components/Home/ImageCapture'
 import DoctorDashboard from './components/Home/DoctorDashboard'
 import PatientDashboard from './components/Home/PatientDashboard'
+import UnassignedPatients from './components/Home/UnassignedPatients/UnassignedPatients'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<AuthenticatedRoute />}>
+              {/* Doctor routes */}
               <Route
                 path="/"
                 element={
@@ -33,6 +35,15 @@ function App() {
                   </Home>
                 }
               />
+              <Route
+                path="/unassigned-patients"
+                element={
+                  <Home>
+                    <UnassignedPatients />
+                  </Home>
+                }
+              />
+              {/* Patient Routes */}
               <Route
                 path="/patient"
                 element={

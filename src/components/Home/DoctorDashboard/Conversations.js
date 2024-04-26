@@ -13,7 +13,7 @@ function Conversations() {
     setLoading(true)
     try {
       const { data } = await sharedAxios.get('doctors/')
-      if (Array.isArray(data) && data.length > 0) {
+      if (Array.isArray(data)) {
         setConversations(data.filter((otherUser) => otherUser.id !== user.id))
       }
     } catch (err) {
