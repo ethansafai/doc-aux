@@ -4,6 +4,7 @@ import {
   CameraIcon,
   ChartPieIcon,
   UserCircleIcon,
+  SupportIcon,
 } from '@heroicons/react/outline'
 import { cloneElement, useContext, useState } from 'react'
 import { UserContext } from '../../context/AppContext'
@@ -71,7 +72,7 @@ function LeftSideBar() {
               route="/image-capture"
             />
             <NavigationItem
-              icon={<CameraIcon />}
+              icon={<SupportIcon />}
               text="Unassigned Patients"
               route="/unassigned-patients"
             />
