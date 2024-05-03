@@ -40,7 +40,7 @@ function Notifications() {
             >
               <p className="text-lg px-1">
                 <span className="italic text-base text-gray-500">
-                  Dr. {user.doctor.firstName} {user.doctor.lastName}:{' '}
+                  Dr. {user.doctor?.firstName} {user.doctor?.lastName}:{' '}
                 </span>
                 {notification.message}
               </p>

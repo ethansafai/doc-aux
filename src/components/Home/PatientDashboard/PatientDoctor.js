@@ -1,11 +1,12 @@
-import { AxiosError } from 'axios'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import sharedAxios from '../../../services/httpService'
 import useInitialMount from '../../../hooks/useInitialMount'
+import { UserContext } from '../../../context/AppContext'
 
 function PatientDoctor() {
   const [doctor, setDoctor] = useState(null)
   const [loading, setLoading] = useState(false)
+  const { user, setUser } = useContext(UserContext)
 
   async function getDoctor() {
     setLoading(true)
@@ -13,6 +14,7 @@ function PatientDoctor() {
       const { data } = await sharedAxios.get('patients/self')
       if (data.doctor) {
         setDoctor(data.doctor)
+        setUser({ ...user, doctor: data.doctor })
       }
     } catch (err) {
       console.error(err)
