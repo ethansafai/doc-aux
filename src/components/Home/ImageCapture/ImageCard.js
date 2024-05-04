@@ -85,7 +85,7 @@ function ImageCard({ imageName, handleClose }) {
         <>
           <p className="font-medium text-lg mb-2 italic">{imageName}</p>
           <img
-            className="max-w-screen-md mx-auto max-h-[60vh]"
+            className="max-w-full mx-auto max-h-[60vh]"
             src={imageData}
             alt="An upload from your collection"
           />
