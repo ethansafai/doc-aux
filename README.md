@@ -14,7 +14,7 @@ This document outlines the frontend development approach for the DocAux applicat
 
 ### 1. Account Management
 
-- **Creating A New DocAux Profile:** A simple form will allow new users to create their DocAux profile by entering necessary personal and professional information.
+- **Creating A New DocAux Profile:** A simple form will allow new doctors and patients to create their DocAux profile by entering necessary personal and professional information.
 
 ### 2. Dashboard Navigation
 
@@ -26,11 +26,7 @@ This document outlines the frontend development approach for the DocAux applicat
 
 ### 4. Reporting and Communication
 
-- **Reports and Messaging:** A secure and intuitive interface for generating, viewing, and sharing diagnostic reports. It will also facilitate secure messaging within the DocAux network.
-
-### 5. Support and User Guidance
-
-- **DocAux Support:** Access to support resources, including FAQs, tutorials, and direct contact options for technical support.
+- **Reports and Messaging:** A secure and intuitive interface for generating, viewing, and sharing diagnostic reports. It will also facilitate secure messaging within the DocAux network between doctors and patients.
 
 #
 
